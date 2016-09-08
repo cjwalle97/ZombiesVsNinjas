@@ -31,14 +31,14 @@ bool CanNinjaAttack(Ninja &n, Zambie &z)
 
 void zombieInfo(Zambie z)
 {
-	std::cout << "chris's health and spirit are -> " << z.health << " & " << z.spirit << std::endl;
+	std::cout << z.name << "'s health and spirit are -> " << z.health << " & " << z.spirit << std::endl;
 
 
 
 }
 void ninjaInfo(Ninja n)
 {
-	std::cout << "regi's health and chi are -> " << n.health << " & " << n.chi << std::endl;
+	std::cout << n.name << "'s health and chi are -> " << n.health << " & " << n.chi << std::endl;
 
 }
 // a Zambie can't attack when the target has 0 health or when the zambie has 0 spirit
@@ -87,10 +87,10 @@ void NinFight(Ninja &n, Zambie &z)
 }
 int main()
 {
-	Zambie chris = { 90, true, 10,"big chris" };
+	Zambie chris = { 90, true, 10,"chris" };
 	Zambie matthew = { 110, true, 15, "matthew" };
-	Ninja regi = { 150, true, 15, "reggggggiiii" };
-	Ninja wilson = { 100, true, 20, "wilsontheball" };
+	Ninja regi = { 150, true, 15, "regi" };
+	Ninja wilson = { 100, true, 20, "wilson" };
 	char input = '0';
 
 	printf("WELCOME TO THE ZAMBIE VERSUS NINJA BATTLE SIMULATOR!\n");
@@ -99,12 +99,15 @@ int main()
 	printf("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n");
 	printf("Press Z to select a Zambie to attack with\n");
 	printf("Press N to select a Ninja to attack with\n");
-	printf("Press s to see the status of all characters\n");
-	printf("Press r to see which characters have died and to end the game\n");
-	while (input != 'q')
+	printf("Press S to see the status of all characters\n");
+	printf("Press R to see which characters have died\n");
+	printf("Press Q to end the game");
+	while (input != 'Q')
 	{
 		std::cin >> input;
-		if (input == 'Z')
+		switch (input)
+		{
+		case 'Z':
 		{
 			std::cout << "Now choose which Zambie will attack which Ninja\n" << std::endl;
 			std::cout << "A = chris -> regi\n" << std::endl;
@@ -132,8 +135,9 @@ int main()
 				std::cout << "MATTHEW FIGHT WILSON" << std::endl;
 				ZamFight(matthew, wilson);
 			}
+			break;
 		}
-		if (input == 'N')
+		case 'N':
 		{
 			std::cout << "Now choose which Ninja will attack which Zambie\n" << std::endl;
 			std::cout << "a= regi -> chris\n" << std::endl;
@@ -161,16 +165,17 @@ int main()
 				std::cout << "WILSON FIGHT MATHEW" << std::endl;
 				NinFight(wilson, matthew);
 			}
+			break;
 		}
-		if (input == 's')
+		case 'S':
 		{
 			zombieInfo(chris);
 			zombieInfo(matthew);
 			ninjaInfo(regi);
 			ninjaInfo(wilson);
-
+			break;
 		}
-		if (input == 'r')
+		case 'R':
 		{
 			if (regi.health <= 0)
 			{
@@ -190,8 +195,16 @@ int main()
 			{
 				printf("Goodbye Matthew");
 			}
-			printf("GAME OVER");
 			break;
+		}
+		case 'Q':
+			printf("GAME OVER\n");
+			break;
+
+		default:
+		{
+			std::cout << "not a valid input" << std::endl;
+		}
 		}
 		printf("new frame \n");
 
